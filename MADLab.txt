@@ -348,6 +348,11 @@ fun DiceWithButtonAndImage(modifier: Modifier=Modifier){
 }
 
 ***Strings.xml***
+
+In your project structure, go to res > values.
+Right-click on the values folder, select New > Values Resource File.
+Name the file strings.xml and click "OK" to create it.
+
 <resources>
 <string name="app_name">DiceRoller</string>
 <string name="roll">Roll</string>
