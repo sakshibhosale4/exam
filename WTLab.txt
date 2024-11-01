@@ -1,0 +1,1162 @@
+_____________________________________________________________________________________________________________________________
+4 Grid layout
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="QUE4.CSS">
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+        </div>
+</body>
+</html>
+
+css//////////////
+.grid-container {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+___________________________________________________________________________________________________________
+ 5 flex layout
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Layout</title>
+    <link rel="stylesheet" href="QUE5.css">
+</head>
+<body>
+    <div class="flex-container">
+        <div class="flex-item">1</div>
+        <div class="flex-item">2</div>
+        <div class="flex-item">3</div>
+        <div class="flex-item">4</div>
+        <div class="flex-item">5</div>
+        <div class="flex-item">6</div>
+        <div class="flex-item">7</div>
+        <div class="flex-item">8</div>
+        <div class="flex-item">9</div>
+    </div>
+</body>
+</html>
+
+css?///////////////////////
+.flex-container {
+    display: flex;
+    flex-wrap: wrap; 
+    width: 320px; /* Adjust width for a 3-item layout */
+    gap: 10px;
+}
+
+/* Individual flex items */
+.flex-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 24px;
+    border-radius: 5px;
+}
+_________________________________________________________________________________________
+6 animations and transition
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transition and Animation Example</title>
+    <style>
+        .animated-div {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            animation-name: colorChange;
+            animation-duration: 4s;
+            animation-delay: 2s;
+            animation-fill-mode: forwards; /* Keeps the color yellow after animation */
+            transition: background-color 0.5s ease; /* Adds smooth color transition on hover */
+        }
+        
+        /* Keyframes for the initial animation */
+        @keyframes colorChange {
+            from {
+                background-color: red;
+            }
+            to {
+                background-color: yellow;
+            }
+        }
+
+        /* Hover effect with transition */
+        .animated-div:hover {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-div">
+        <p>This is a transition and animation example</p>
+    </div>
+</body>
+</html>
+
+_____________________________________________________________________________________________
+7 responsive web page
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Design with Media Queries</title>
+    <style>
+        /* Base styles */
+        .responsive-div {
+            width: 300px;
+            height: 300px;
+            background-color: lightcoral;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            margin: auto;
+        }
+
+        /* Media query for screens smaller than 768px (tablets) */
+        @media (max-width: 768px) {
+            .responsive-div {
+                width: 200px;
+                height: 200px;
+                font-size: 18px;
+                background-color: lightseagreen;
+            }
+        }
+
+        /* Media query for screens smaller than 480px (mobile) */
+        @media (max-width: 480px) {
+            .responsive-div {
+                width: 150px;
+                height: 150px;
+                font-size: 16px;
+                background-color: lightblue;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="responsive-div">
+        This is a responsive box
+    </div>
+</body>
+</html>
+
+
+_____________________________________________________________________________________________
+8 bootstrap grid system
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-6 col-lg-8">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti dolorem unde nam. Ullam ipsum totam, expedita sequi voluptates iste vero aspernatur earum, ad eveniet praesentium molestiae sapiente quod qui impedit.</div>
+        <div class="col-md-6 col-lg-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti dolorem unde nam. Ullam ipsum totam, expedita sequi voluptates iste vero aspernatur earum, ad eveniet praesentium molestiae sapiente quod qui impedit.</div>
+    </div>
+    </body>
+</html>
+
+_____________________________________________________________________________________________
+9 bootstrap responsive web page
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Components Example</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styles for the image */
+        .img-responsive {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <!-- Responsive Image -->
+        <div class="text-center">
+            <img src="https://via.placeholder.com/800x400" alt="Placeholder Image" class="img-responsive mb-4">
+        </div>
+
+        <!-- Buttons -->
+        <div class="text-center mb-4">
+            <button class="btn btn-primary">Primary Button</button>
+            <button class="btn btn-secondary">Secondary Button</button>
+            <button class="btn btn-success">Success Button</button>
+        </div>
+
+        <!-- Table -->
+        <h2>Sample Table</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>johndoe@example.com</td>
+                    <td>(123) 456-7890</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>janesmith@example.com</td>
+                    <td>(098) 765-4321</td>
+                </tr>
+                <tr>
+                    <td>Sam Wilson</td>
+                    <td>samwilson@example.com</td>
+                    <td>(555) 123-4567</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+
+
+_____________________________________________________________________________________________
+10 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Registration form</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <textarea class="form-control" id="address" rows="3" placeholder="Enter your address"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="gender" id="male" value="male">
+                    <label for="male" class="form-check-label">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="radio" class="form-check-input" name="gender" id="female" value="female">
+                    <label for="female" class="form-check-label">Female</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="hobbies">Hobbies:</label><br>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="reading" value="reading">
+                    <label for="reading" class="form-check-label">Reading</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" class="form-control">
+                    <option>USA</option>
+                    <option>UK</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="language">Preferred language:</label>
+                <input class="form-control" list="languages" id="language" placeholder="Choose or type your language">
+                <datalist id="languages">
+                    <option value="French"></option>
+                    <option value="Spanish"></option>
+                    <option value="German"></option>
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="experience">Experience (range):</label>
+                <input type="range" class="form-control-range" id="experience" min="0" max="20">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+_____________________________________________________________________________________________
+11 Fibonacci
+
+var n=window.prompt("Enter a number : ");
+function fibo(n){
+    var n1=0,n2=1;
+    while(n1<n){
+        console.log(n1+" ");
+        let n3=n1+n2;
+        n1=n2;
+        n2=n3;
+    }
+}
+fibo(n);
+
+_____________________________________________________________________________________________
+12 methods of array object
+
+let marks=[98,56,95,23]
+console.log(marks);
+console.log(marks[2]);
+console.log("length : "+marks.length);
+marks.push(65);
+console.log(marks);
+marks.pop();
+console.log("marks after pop : "+marks);
+console.log("Reverse : "+marks.reverse());
+console.log("sort method : "+marks.sort());
+console.log("shift method : "+marks.shift());
+console.log(marks);
+console.log("marks.unshift() : "+ console.log(marks.unshift(56)));
+
+_____________________________________________________________________________________________
+13 factorial
+
+function factorial(n){
+    if(n==0){
+        return 1;
+    }else{
+        return n*factorial(n-1);
+    }
+}
+
+n=prompt("Enter the no of test cases : ");
+for(let i=1;i<=n;i++){
+    x=window.prompt("Enter a number : ");
+    console.log("factorial of "+x+" is "+factorial(x));
+}
+
+_____________________________________________________________________________________________
+14 name email phone verification
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Validation Form</title>
+</head>
+<body>
+    <h2>Simple Validation Form</h2>
+    <form id="validation-form">
+        <div>
+            <label for="username">Username: </label>
+            <input type="text" id="username" required>
+        </div>
+        <div>
+            <label for="email">Email: </label>
+            <input type="text" id="email" required>
+        </div>
+        <div>
+            <label for="phone">Phone No.: </label>
+            <input type="text" id="phone" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>    
+    <div id="message"></div>
+
+    <script>
+        document.getElementById('validation-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            const usernameRegex = /^[a-zA-Z][a-zA-Z0-9]{3,20}$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const phoneRegex = /^[0-9]{10}$/;
+            const messageElement = document.getElementById('message');
+
+            if (!usernameRegex.test(username) || !emailRegex.test(email) || !phoneRegex.test(phone)) {
+                messageElement.textContent = 'Invalid credentials';
+                messageElement.style.color = 'red';
+            } else {
+                messageElement.textContent = `Welcome, ${username}`;
+                messageElement.style.color = 'green';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+_____________________________________________________________________________________________
+15 scientific calci
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        .calculator {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 20px;
+            text-align: right;
+            border: none;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .operator {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button class="operator" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="deleteLastChar()">CE</button>
+            <button class="operator" onclick="calculate('(')">(</button>
+            <button class="operator" onclick="calculate(')')">)</button>
+            <button class="operator" onclick="calculate('/')">/</button>
+            <button onclick="calculate('7')">7</button>
+            <button onclick="calculate('8')">8</button>
+            <button onclick="calculate('9')">9</button>
+            <button class="operator" onclick="calculate('*')">*</button>
+            <button onclick="calculate('4')">4</button>
+            <button onclick="calculate('5')">5</button>
+            <button onclick="calculate('6')">6</button>
+            <button class="operator" onclick="calculate('-')">-</button>
+            <button onclick="calculate('1')">1</button>
+            <button onclick="calculate('2')">2</button>
+            <button onclick="calculate('3')">3</button>
+            <button class="operator" onclick="calculate('+')">+</button>
+            <button onclick="calculate('0')">0</button>
+            <button onclick="calculate('.')">.</button>
+            <button class="operator" onclick="evaluateExpression()">=</button>
+        </div>
+    </div>
+    <script>
+        const display = document.getElementById('display');
+        function calculate(value) {
+            display.value += value;
+        }
+        function clearDisplay() {
+            display.value = "";
+        }
+        function deleteLastChar() {
+            display.value = display.value.slice(0, -1);
+        }
+        function evaluateExpression() {
+            try {
+                display.value = eval(display.value);
+            } catch (error) {
+                display.value = 'error';
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+_____________________________________________________________________________________________
+16  
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+   <h1>Mouse enter-leave action</h1>
+   <h2>Mouse up-down</h2>
+   <p style="display: none;">This is a paragraph</p>
+   <button>Click</button>
+   <h3>Hover</h3>
+   <form>
+        <label for="name">Name: </label>
+        <input type="text" placeholder="Enter your name">
+        <br>
+        <label for="email">Email: </label>
+        <input type="email" placeholder="Enter your email">
+   </form>
+
+   <script src="QUE16.js"></script>
+</body>
+</html>
+   
+
+.js
+$(document).ready(function() {
+    $('button').click(function() {
+        $('p').toggle();
+    });
+
+    $('h1').mouseenter(function() {
+        $(this).css("color", "pink");
+    });
+
+    $('h1').mouseleave(function() {
+        $(this).css("color", "blue");
+    });
+
+    $('h2').on({
+        mouseup: function() {
+            $(this).css("background-color", "lightgreen");
+        },
+        mousedown: function() {
+            $(this).css("background-color", "yellow");
+        }
+    });
+
+    $('h3').hover(function() {
+        alert("hover.");
+    });
+
+    $('input').focus(function() {
+        $(this).css("background-color", "lightblue");
+    });
+
+    $('input').blur(function() {
+        $(this).css("background-color", "lightgreen");
+    });
+});
+
+_____________________________________________________________________________________________
+17 hide show toggle
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Effects Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>jQuery Effects (Show, Hide, Toggle)</h1>
+    <p>This is a paragraph for demonstration.</p>
+
+    <!-- Buttons for each effect -->
+    <button id="showBtn">Show</button>
+    <button id="hideBtn">Hide</button>
+    <button id="toggleBtn">Toggle</button>
+
+    <script src="QUE17.js"></script>
+</body>
+</html>
+
+.js
+$(document).ready(function() {
+    // Show effect
+    $('#showBtn').click(function() {
+        $('p').show();
+    });
+
+    // Hide effect
+    $('#hideBtn').click(function() {
+        $('p').hide();
+    });
+
+    // Toggle effect
+    $('#toggleBtn').click(function() {
+        $('p').toggle();
+    });
+});
+
+_____________________________________________________________________________________________
+18 fadein fadeout fadetoggle fadeto
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Fading Effects Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>jQuery Fading Effects (Fade In, Fade Out, Fade Toggle, Fade To)</h1>
+    <p>This is a paragraph for fading effect demonstration.</p>
+
+    <!-- Buttons for each fade effect -->
+    <button id="fadeInBtn">Fade In</button>
+    <button id="fadeOutBtn">Fade Out</button>
+    <button id="fadeToggleBtn">Fade Toggle</button>
+    <button id="fadeToBtn">Fade To 50%</button>
+
+    <script src="QUE18.js"></script>
+</body>
+</html>
+
+.js
+
+$(document).ready(function() {
+    // Fade In effect
+    $('#fadeInBtn').click(function() {
+        $('p').fadeIn();
+    });
+
+    // Fade Out effect
+    $('#fadeOutBtn').click(function() {
+        $('p').fadeOut();
+    });
+
+    // Fade Toggle effect
+    $('#fadeToggleBtn').click(function() {
+        $('p').fadeToggle();
+    });
+
+    // Fade To effect (sets opacity to 50%)
+    $('#fadeToBtn').click(function() {
+        $('p').fadeTo("slow", 0.5);
+    });
+});
+
+_____________________________________________________________________________________________
+19 slidein slideout slidetoggle
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Sliding Effects Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>jQuery Sliding Effects (Slide Down, Slide Up, Slide Toggle)</h1>
+    <p style="display: none;">This is a paragraph for sliding effect demonstration.</p>
+
+    <!-- Buttons for each slide effect -->
+    <button id="slideDownBtn">Slide Down</button>
+    <button id="slideUpBtn">Slide Up</button>
+    <button id="slideToggleBtn">Slide Toggle</button>
+
+    <script src="QUE19.js"></script>
+</body>
+</html>
+ 
+
+.js
+$(document).ready(function() {
+    // Slide Down effect
+    $('#slideDownBtn').click(function() {
+        $('p').slideDown();
+    });
+
+    $('#slideUpBtn').click(function() {
+        $('p').slideUp();
+    });
+
+    $('#slideToggleBtn').click(function() {
+        $('p').slideToggle();
+    });
+});
+
+
+20
+
+package com.oracle.jdbc;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DML_StatementObject {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Driver loaded successfully");
+			Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","cvr123");
+			System.out.println("Connection established");
+			Statement stmt=conn.createStatement();
+			
+			//inserting values into table
+			/*int count=stmt.executeUpdate("insert into student values(103, 'sanjay',98)");
+			if(count==1) {
+				System.out.println("Record inserted successfully.");
+			}else {
+				System.out.println("There is some problem in inserting record");
+			}
+			*/
+			
+			//updating values of the table
+			
+			int count1=stmt.executeUpdate("update student set name='ajay' where marks=93");
+			if(count1==1) {
+				System.out.println("Record successfully updated");
+			}else {
+				System.out.println("Error in updating record.");
+			}
+			
+			
+			// deleting record form table;
+			/*int count2=stmt.executeUpdate("delete from student where name='ajay'");
+			if(count2==1) {
+				System.out.println("Record successfully deleted");
+			}else {
+				System.out.println("Error in deleting record.");
+			}
+			*/
+			ResultSet rs=stmt.executeQuery("select * from student");			
+			while(rs.next()) {
+				System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getInt(3));
+			}
+			conn.close();
+			stmt.close();
+			rs.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
+
+21
+
+package com.oracle.jdbc;
+import java.sql.*;
+public class SelectQuery {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Driver loaded successfully");
+			Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","cvr123");
+			System.out.println("Connection established");
+			Statement stmt=conn.createStatement();
+			ResultSet rs=stmt.executeQuery("select * from student");
+			while(rs.next()) {
+				System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getInt(3));
+			}
+			conn.close();
+			stmt.close();
+			rs.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
+
+}
+
+22
+#2package com.oracle.jdbc;
+import java.sql.*;
+import java.util.*;
+
+public class DML_PreparedStament {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc=new Scanner(System.in);
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Driver Loaded.");
+			Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","cvr123");
+			System.out.println("Connection established");
+			 
+			//String SqlQuery="insert into student values(105,'sunita',85)";	
+			String SqlQuery="insert into student values(?,?,?)";	
+			PreparedStatement pst=conn.prepareStatement(SqlQuery);
+			int rollno=sc.nextInt();
+			String name=sc.next();
+			int marks=sc.nextInt();
+			pst.setInt(1, rollno);
+			pst.setString(2,name);
+			pst.setInt(3,marks);
+			int rowsAffected = pst.executeUpdate();
+			
+			// update
+//			String SqlQuery1="update student set rollno=106 where marks=85";		
+//			PreparedStatement pst=conn.prepareStatement(SqlQuery1);
+//			int rowsAffected = pst.executeUpdate();
+			
+			//delete
+//			String SqlQuery2="delete from student where name='anita'";
+//			PreparedStatement pst=conn.prepareStatement(SqlQuery2);
+//			int rowsAffected = pst.executeUpdate();
+			
+			if(rowsAffected!=0)
+				System.out.println(rowsAffected + " row(s) affected.");
+			else
+				System.out.println("Error ");
+            ResultSet rs=pst.executeQuery("select * from student");			
+			while(rs.next()) {
+				System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getInt(3));
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
+
+}
+
+
+23
+package com.oracle.jdbc;
+import java.sql.*;
+public class CallableStament {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			System.out.println("Driver loaded successfully");
+			Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","cvr123");
+			System.out.println("Connection established");
+			
+			CallableStatement cst=conn.prepareCall("{call sum(?,?,?)}");
+			cst.setInt(1,100);
+			cst.setInt(2,200);
+			cst.registerOutParameter(3,Types.INTEGER);
+			cst.execute();
+			System.out.println("Result : "+cst.getInt(3));
+			conn.close();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
+
+}
+
+
+24
+package com.oracle.jdbc;
+import java.sql.*;
+public class DataBase_Metadata {
+    public static void main(String[] args) {
+        Connection conn = null;
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            System.out.println("Driver Loaded Successfully.");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "cvr123");
+            System.out.println("Connection established.");
+            DatabaseMetaData metaData = conn.getMetaData();
+            System.out.println("Database Product Name: " + metaData.getDatabaseProductName());
+            System.out.println("Database Product Version: " + metaData.getDatabaseProductVersion());
+            System.out.println("Driver Name: " + metaData.getDriverName());
+            System.out.println("Driver Version: " + metaData.getDriverVersion());
+            System.out.println("\nTables in the database:");
+            ResultSet tables = metaData.getTables(null, null, "%", new String[]{"TABLE"});
+            while (tables.next()) {
+                String tableName = tables.getString("TABLE_NAME");
+                System.out.println("- " + tableName);
+            }
+            tables.close();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver class not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception occurred.");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                    System.out.println("Connection closed.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+25
+package com.oracle.jdbc;
+import java.sql.*;
+public class ResultSet_Metadata {
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            System.out.println("Driver Loaded Successfully.");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "cvr123");
+            System.out.println("Connection established.");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM Student");
+            ResultSetMetaData rsMetaData = rs.getMetaData();
+            int columnCount = rsMetaData.getColumnCount();
+            System.out.println("Column Count: " + columnCount);
+            System.out.println("Column Information:");
+            for (int i = 1; i <= columnCount; i++) {
+                String columnName = rsMetaData.getColumnName(i);
+                String columnType = rsMetaData.getColumnTypeName(i);
+                int columnSize = rsMetaData.getColumnDisplaySize(i);
+                boolean isNullable = rsMetaData.isNullable(i) == ResultSetMetaData.columnNullable;
+                System.out.printf("Column %d: Name = %s, Type = %s, Size = %d, Nullable = %b%n",
+                        i, columnName, columnType, columnSize, isNullable);
+            }
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver class not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception occurred.");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                    System.out.println("Connection closed.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
+
+26
+package com.oracle.jdbc;
+import java.sql.*;
+public class ResultSet_Scrollable {
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            System.out.println("Driver Loaded Successfully.");
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "cvr123");
+            System.out.println("Connection established.");
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rs= stmt.executeQuery("SELECT * FROM Student");
+            rs.last();
+                System.out.println("Last Record:");
+                System.out.println("ID: " + rs.getInt(1) + ", Name: " + rs.getString(2) + ", Course: " + rs.getString(3));
+            
+            rs.first();
+                System.out.println("First Record:");
+                System.out.println("ID: " + rs.getInt(1) + ", Name: " + rs.getString(2) + ", Course: " + rs.getString(3));
+          
+           if( rs.absolute(10)) {
+                System.out.println("Second Record:");
+                System.out.println("ID: " + rs.getInt(1) + ", Name: " + rs.getString(2) + ", Course: " + rs.getString(3));
+           }
+            rs.first();
+                System.out.println("Returning to First Record:");
+                System.out.println("ID: " + rs.getInt(1) + ", Name: " + rs.getString(2) + ", Course: " + rs.getString(3));
+            
+            rs.close();
+            stmt.close();
+            conn.close();
+            System.out.println("Connection closed.");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver class not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception occurred.");
+            e.printStackTrace();
+        }
+    }
+}
+
+27
+package com.oracle.jdbc;
+
+import java.sql.*;
+
+public class UpdatableResultSetExample {
+
+    public static void main(String[] args) {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // Load the Oracle JDBC driver
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            System.out.println("Driver Loaded Successfully.");
+
+            // Establish the connection
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "cvr123");
+            System.out.println("Connection established.");
+
+            // Create a statement with updatable result set
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
+            // Execute a SELECT query
+            rs = stmt.executeQuery("SELECT * FROM Student");
+
+            // Update the first record
+            if (rs.first()) {
+                System.out.println("Updating First Record:");
+                System.out.println("Old Name: " + rs.getString("Name")); // Assuming the second column is Name
+
+                // Update the name of the first record
+                rs.updateString("Name", "Updated Name"); // Update the Name column
+                rs.updateRow(); // Commit the changes
+                System.out.println("Updated Name: " + rs.getString("Name"));
+            }
+
+            // Delete the second record if it exists
+            if (rs.absolute(2)) {
+                System.out.println("Deleting Second Record:");
+                System.out.println("ID: " + rs.getInt("ID")); // Assuming the first column is ID
+                rs.deleteRow(); // Delete the current row
+                System.out.println("Deleted Second Record.");
+            }
+
+            // Display all records after updates
+            System.out.println("\nRecords After Update and Delete:");
+            rs.beforeFirst(); // Move the cursor before the first row
+            while (rs.next()) {
+                System.out.println("ID: " + rs.getInt("ID") + ", Name: " + rs.getString("Name") + ", Course: " + rs.getString("Course"));
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Driver class not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("SQL Exception occurred.");
+            e.printStackTrace();
+        } finally {
+            // Clean up and close resources
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                    System.out.println("Connection closed.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
