@@ -1,0 +1,652 @@
+ARTICULATION POINT ///////////////////////////////////////////////////////////
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX 100
+
+int disc[MAX], low[MAX], parent[MAX], ap[MAX];
+bool visited[MAX];
+int time;
+
+void addEdge(int graph[MAX][MAX], int u, int v) {
+    graph[u][v] = 1;
+    graph[v][u] = 1;
+}
+
+void articulationDFS(int u, int graph[MAX][MAX], int V) {
+    int children = 0;
+    visited[u] = true;
+    disc[u] = low[u] = ++time;
+
+    for (int v = 0; v < V; v++) {
+        if (graph[u][v]) {
+            if (!visited[v]) {
+                children++;
+                parent[v] = u;
+                articulationDFS(v, graph, V);
+                low[u] = (low[u] < low[v]) ? low[u] : low[v];
+                if (parent[u] == -1 && children > 1) ap[u] = 1;
+                if (parent[u] != -1 && low[v] >= disc[u]) ap[u] = 1;
+            }
+            else if (v != parent[u]) {
+                low[u] = (low[u] < disc[v]) ? low[u] : disc[v];
+            }
+        }
+    }
+}
+
+void findArticulationPoints(int graph[MAX][MAX], int V) {
+    for (int i = 0; i < V; i++) {
+        parent[i] = -1;
+        visited[i] = false;
+        ap[i] = 0;
+    }
+    time = 0;
+
+    for (int i = 0; i < V; i++) {
+        if (!visited[i]) {
+            articulationDFS(i, graph, V);
+        }
+    }
+
+    printf("Articulation points are: ");
+    for (int i = 0; i < V; i++) {
+        if (ap[i]) {
+            printf("%d ", i);
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int V, E, u, v;
+    printf("Enter number of vertices (vertices start from 0) : ");
+    scanf("%d", &V);
+    printf("Enter number of edges: ");
+    scanf("%d", &E);
+
+    int graph[MAX][MAX] = {0};
+
+    for (int i = 0; i < E; i++) {
+        printf("Enter edge (u v): ");
+        scanf("%d %d", &u, &v);
+        if (u >= 0 && u < V && v >= 0 && v < V) {
+            addEdge(graph, u, v);
+        } else {
+            printf("Invalid edge: (%d, %d)\n", u, v);
+            i--; // To repeat this edge input if it was invalid
+        }
+    }
+
+    findArticulationPoints(graph, V);
+
+    return 0;
+}
+
+
+
+JOB SEQUENCING ?????????????????????////////////////////////////////////
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_JOBS 100
+
+typedef struct Job {
+    int id;       // Job ID
+    int deadline; // Deadline of the job
+    int profit;   // Profit of the job
+} Job;
+
+// Comparator function to sort jobs based on profit
+int compare(const void *a, const void *b) {
+    return ((Job *)b)->profit - ((Job *)a)->profit; // Descending order
+}
+
+void job_sequencing(Job jobs[], int n) {
+    // Sort jobs by profit
+    qsort(jobs, n, sizeof(Job), compare);
+    
+    int result[MAX_JOBS];   // Array to store the result (job sequence)
+    int slot[MAX_JOBS];     // To keep track of free time slots
+
+    // Initialize all slots to be free
+    for (int i = 0; i < n; i++) {
+        slot[i] = 0;
+        result[i] = -1; // No job is assigned
+    }
+
+    // Iterate through all jobs
+    for (int i = 0; i < n; i++) {
+        // Find a free slot for this job (going backwards)
+        for (int j = (jobs[i].deadline < n ? jobs[i].deadline : n) - 1; j >= 0; j--) {
+            if (slot[j] == 0) { // If the slot is free
+                slot[j] = 1;   // Mark this slot as occupied
+                result[j] = jobs[i].id; // Assign job ID to this slot
+                break;
+            }
+        }
+    }
+
+    // Print the result
+    printf("Job sequence for maximum profit: ");
+    for (int i = 0; i < n; i++) {
+        if (result[i] != -1) {
+            printf("%d ", result[i]);
+        }
+    }
+    printf("\n");
+
+    // Calculate and print maximum profit
+    int max_profit = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (result[i] == jobs[j].id) {
+                max_profit += jobs[j].profit;
+                break;
+            }
+        }
+    }
+    printf("Maximum profit: %d\n", max_profit);
+}
+
+int main() {
+    int n;
+
+    printf("Enter the number of jobs: ");
+    scanf("%d", &n);
+
+    Job jobs[MAX_JOBS]; // Declare an array of jobs
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter job ID, deadline, and profit for job %d: ", i + 1);
+        scanf("%d %d %d", &jobs[i].id, &jobs[i].deadline, &jobs[i].profit);
+    }
+
+    job_sequencing(jobs, n);
+
+    return 0;
+}
+
+
+
+
+SHORTEST PATH IN A GRAPH ?////////////////////////////////
+
+#include <stdio.h>
+#include <stdbool.h>
+#include<limits.h>
+
+#define MAX 100      
+#define INF INT_MAX
+
+// Function to implement Dijkstra's algorithm
+void ShortestPaths(int v, int cost[MAX][MAX], int dist[MAX], int n) {
+    bool S[MAX];  
+    int i, u, w;
+
+    for (i = 1; i <= n; i++) {
+        S[i] = false;
+        if (cost[v][i] != 0 && v != i) {  
+            dist[i] = cost[v][i];  // Direct path
+        } else if (v == i) {
+            dist[i] = 0;  // Distance to self is 0
+        } else {  
+            dist[i] = INF;  // No path is initialized to INF
+        }
+    }
+
+    S[v] = true;  
+    dist[v] = 0;  
+
+    for (int num = 1; num < n; num++) {
+        int min = INF;
+        u = -1;
+        for (i = 1; i <= n; i++) {
+            if (!S[i] && dist[i] < min) {
+                min = dist[i];
+                u = i;
+            }
+        }
+
+        if (u==-1) {
+            break;
+        }
+
+        S[u] = true;
+
+        for (w = 1; w <= n; w++) {
+            if (!S[w] && cost[u][w] != 0 && dist[w]>dist[u] + cost[u][w]) {
+                dist[w] = dist[u] + cost[u][w];
+            }
+        }
+    }
+}
+
+int main() {
+    int n, v;
+    int cost[MAX][MAX], dist[MAX];
+
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter the cost adjacency matrix (use 0 for no direct path):\n");
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            scanf("%d", &cost[i][j]);
+        }
+    }
+
+    printf("Enter the source vertex (1 to %d): ", n);
+    scanf("%d", &v);
+    ShortestPaths(v, cost, dist, n);
+
+    printf("Shortest distances from vertex %d:\n", v);
+    for (int i = 1; i <= n; i++) {
+        if (dist[i] == INF) {
+            printf("To vertex %d: No path\n", i);  
+        } else {
+            printf("To vertex %d: %d\n", i, dist[i]);
+        }
+    }
+    return 0;
+}
+
+
+
+OBST ///////////////////////////////
+
+#include <stdio.h>
+#include <limits.h>  // For INT_MAX
+
+#define MAX 100  // Maximum number of nodes
+
+void OBST(float p[], float q[], int n, float c[MAX][MAX], int r[MAX][MAX], float w[MAX][MAX]);
+int findOptimalRoot(float c[MAX][MAX], int r[MAX][MAX], int i, int j);
+
+int main() {
+    int n;
+    printf("Enter the number of keys: ");
+    scanf("%d", &n);
+   
+    float p[n + 1], q[n + 1];
+   
+    printf("Enter the probabilities for successful searches (p[i]):\n");
+    for (int i = 1; i <= n; i++) {
+        printf("p[%d]: ", i);
+        scanf("%f", &p[i]);
+    }
+   
+    printf("Enter the probabilities for unsuccessful searches (q[i]):\n");
+    for (int i = 0; i <= n; i++) {
+        printf("q[%d]: ", i);
+        scanf("%f", &q[i]);
+    }
+   
+    float c[MAX][MAX], w[MAX][MAX];
+    int r[MAX][MAX];
+   
+    OBST(p, q, n, c, r, w);
+   
+    printf("Cost Matrix (c):\n");
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= n; j++) {
+            printf("%6.2f ", c[i][j]);
+        }
+        printf("\n");
+    }
+   
+    printf("\nRoot Matrix (r):\n");
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= n; j++) {
+            printf("%6d ", r[i][j]);
+        }
+        printf("\n");
+    }
+   
+    printf("\nWeight Matrix (w):\n");
+    for (int i = 0; i <= n; i++) {
+        for (int j = 0; j <= n; j++) {
+            printf("%6.2f ", w[i][j]);
+        }
+        printf("\n");
+    }
+   
+    printf("\nOptimal cost for OBST: %f\n", c[0][n]);
+    printf("Root of the OBST: %d\n", r[0][n]);
+   
+    return 0;
+}
+
+void OBST(float p[], float q[], int n, float c[MAX][MAX], int r[MAX][MAX], float w[MAX][MAX]) {
+    // Initialize weights, costs, and roots for trees of size 0
+    for (int i = 0; i <= n; i++) {
+        w[i][i] = q[i];
+        c[i][i] = 0;
+        r[i][i] = 0;
+       
+        if (i < n) {
+            w[i][i + 1] = q[i] + q[i + 1] + p[i + 1];
+            c[i][i + 1] = q[i] + q[i + 1] + p[i + 1];
+            r[i][i + 1] = i + 1;
+        }
+    }
+   
+    // Calculate OBST for subtrees of increasing sizes
+    for (int m = 2; m <= n; m++) {  // m = subtree size
+        for (int i = 0; i <= n - m; i++) {  // i = subtree start
+            int j = i + m;  // j = subtree end
+            w[i][j] = w[i][j - 1] + p[j] + q[j];
+           
+            int k = findOptimalRoot(c, r, i, j);
+            c[i][j] = w[i][j] + c[i][k - 1] + c[k][j];
+            r[i][j] = k;
+        }
+    }
+}
+
+int findOptimalRoot(float c[MAX][MAX], int r[MAX][MAX], int i, int j) {
+    float minCost = INT_MAX;
+    int optimalRoot = i;
+
+    for (int m = r[i][j - 1]; m <= r[i + 1][j]; m++) {
+        float currentCost = c[i][m - 1] + c[m][j];
+        if (currentCost < minCost) {
+            minCost = currentCost;
+            optimalRoot = m;
+        }
+    }
+    return optimalRoot;
+}
+
+PRIMS ALGORITHM///////////////////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <limits.h>
+
+#define MAX_VERTICES 100
+#define INF INT_MAX
+
+int Prim(int cost[MAX_VERTICES][MAX_VERTICES], int n) {
+    int mincost = 0;
+    int near[MAX_VERTICES];
+    int t[MAX_VERTICES][2];
+    int i, j, k, l;
+
+    for (i = 0; i < n; i++) {
+        near[i] = (i == 0) ? 0 : INF;
+    }
+
+    int min_edge_cost = INF;
+    for (i = 0; i < n; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (cost[i][j] < min_edge_cost) {
+                min_edge_cost = cost[i][j];
+                k = i;
+                l = j;
+            }
+        }
+    }
+
+    mincost = min_edge_cost;
+    t[0][0] = k;
+    t[0][1] = l;
+
+    for (i = 0; i < n; i++) {
+        if (cost[i][l] < cost[i][k]) {
+            near[i] = l;
+        } else {
+            near[i] = k;
+        }
+    }
+    near[k] = near[l] = -1;
+
+    for (i = 1; i < n - 1; i++) {
+        int min_cost = INF;
+        int min_index = -1;
+
+        for (j = 0; j < n; j++) {
+            if (near[j] != -1 && cost[j][near[j]] < min_cost) {
+                min_cost = cost[j][near[j]];
+                min_index = j;
+            }
+        }
+
+        mincost += min_cost;
+        t[i][0] = min_index;
+        t[i][1] = near[min_index];
+
+        for (j = 0; j < n; j++) {
+            if (near[j] != -1 && cost[j][min_index] < cost[j][near[j]]) {
+                near[j] = min_index;
+            }
+        }
+        near[min_index] = -1;
+    }
+
+    return mincost;
+}
+
+int main() {
+    int n;
+    int cost[MAX_VERTICES][MAX_VERTICES];
+
+    printf("Enter the number of vertices: ");
+    scanf("%d", &n);
+
+    printf("Enter the cost matrix:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &cost[i][j]);
+            if (cost[i][j] == 0 && i != j) {
+                cost[i][j] = INF;
+            }
+        }
+    }
+
+    int result = Prim(cost, n);
+    printf("The cost of the minimum spanning tree is: %d\n", result);
+
+    return 0;
+}
+
+FRACTIONAL KNAP SACK/////////////////////////////////////////////////////////////////
+
+#include <stdio.h>
+
+struct Item {
+    float profit;
+    float weight;
+    float ratio;
+    int index;
+};
+
+// Function to sort items by profit-to-weight ratio in descending order
+void sortItems(struct Item items[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (items[i].ratio < items[j].ratio) {
+                struct Item temp = items[i];
+                items[i] = items[j];
+                items[j] = temp;
+            }
+        }
+    }
+}
+
+// Greedy Knapsack function to maximize profit
+void greedyKnapsack(int n, float m, struct Item items[]) {
+    float x[20] = {0};  // Solution vector, initialized to 0
+    float totalProfit = 0.0;
+    float remainingCapacity = m;
+
+    // Sort items by profit-to-weight ratio
+    sortItems(items, n);
+
+    // Add items to knapsack based on sorted order by profit-to-weight ratio
+    for (int i = 0; i < n; i++) {
+        if (items[i].weight <= remainingCapacity) {
+            // Item can fit completely in knapsack
+            x[items[i].index] = 1.0;
+            totalProfit += items[i].profit;
+            remainingCapacity -= items[i].weight;
+        } else {
+            // Only part of the item can be added if it exceeds remaining capacity
+            x[items[i].index] = remainingCapacity / items[i].weight;
+            totalProfit += items[i].profit * x[items[i].index];
+            remainingCapacity = 0;
+            break;  // Knapsack is full
+        }
+    }
+
+    printf("Solution vector: ( ");
+    for (int i = 0; i < n; i++) {
+        printf("%.2f ", x[i]);
+    }
+    printf(" )\nTotal Profit: %.2f", totalProfit);
+}
+
+int main() {
+    int n;
+    float m;
+
+    printf("Enter the number of items: ");
+    scanf("%d", &n);
+
+    printf("Enter the knapsack capacity: ");
+    scanf("%f", &m);
+
+    struct Item items[n];
+   printf("Enter the profits:");
+    // Input profit and weight for each item
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &items[i].profit);
+    }
+    printf("Enter the weights:");
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &items[i].weight);
+        items[i].ratio = items[i].profit / items[i].weight;
+        items[i].index = i;
+    }
+
+    greedyKnapsack(n, m, items);
+
+    return 0;
+}
+
+
+
+____________________________________________________________________
+RFE/////////////////////////////////
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import RFE
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Create the logistic regression model
+model = LogisticRegression(max_iter=200)
+
+# Create the RFE model and select 2 features
+rfe = RFE(estimator=model, n_features_to_select=2)
+rfe = rfe.fit(X, y)
+
+# Get the ranking of the features
+ranking = rfe.ranking_
+
+# Get the selected features
+selected_features = rfe.support_
+
+print("Feature Ranking: ", ranking)
+print("Selected Features: ", selected_features)
+
+# Print the names of the selected features
+selected_feature_names = [iris.feature_names[i] for i in range(len(selected_features)) if selected_features[i]]
+print("Selected Feature Names: ", selected_feature_names)
+
+
+PCA///////////////////////////////////////////////////////
+
+import numpy as np
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Standardize the data
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Perform PCA to reduce to 2 dimensions
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)
+
+# Create a DataFrame for easy plotting
+df = pd.DataFrame(data=X_pca, columns=['Principal Component 1', 'Principal Component 2'])
+df['Target'] = y
+
+print()
+print()
+
+# Plot the PCA result
+plt.figure(figsize=(8, 6))
+plt.scatter(df['Principal Component 1'], df['Principal Component 2'], c=df['Target'], cmap='viridis', edgecolor='k', s=150)
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.title('PCA of Iris Dataset')
+plt.colorbar()
+plt.show()
+
+print()
+print()
+
+DATA VISUALISAITON////////////////////////////////
+# prompt: scatterplot
+
+import matplotlib.pyplot as plt
+
+# Assuming you want to plot the first two features of the iris dataset
+X = iris_data.data[:, :2]
+y = iris_data.target
+
+plt.scatter(X[:, 0], X[:, 1], c=y)
+plt.xlabel('Sepal length')
+plt.ylabel('Sepal width')
+plt.title('Iris Dataset Scatterplot')
+plt.show()
+
+
+# prompt: pairplot
+
+import seaborn as sns
+sns.pairplot(sns.load_dataset("iris"), hue="species")
+
+
+# prompt: heat map
+
+import pandas as pd
+import seaborn as sns
+
+df = pd.DataFrame(iris_data.data, columns=iris_data.feature_names)
+correlation_matrix = df.corr()
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap of Iris Dataset')
+plt.show()
+
+
+
+
+
+
