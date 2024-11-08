@@ -909,7 +909,7 @@ $(document).ready(function() {
 
 
 _____________________________________________________________________________________________
-20
+20 PARAMETRISED:
 
 package com.oracle.jdbc;
 
@@ -978,7 +978,7 @@ public class DML_StatementObject {
 
 
 _____________________________________________________________________________________________
-21
+21 SELECT OPERATION:
 
 package com.oracle.jdbc;
 import java.sql.*;
@@ -1014,7 +1014,8 @@ public class SelectQuery {
 
 
 _____________________________________________________________________________________________
-22
+22 Insert update delete:
+
 #2package com.oracle.jdbc;
 import java.sql.*;
 import java.util.*;
@@ -1075,7 +1076,8 @@ public class DML_PreparedStament {
 
 
 _____________________________________________________________________________________________
-23
+23 STORED PROCEDURES: 
+
 package com.oracle.jdbc;
 import java.sql.*;
 public class CallableStament {
@@ -1110,7 +1112,8 @@ public class CallableStament {
 
 
 _____________________________________________________________________________________________
-24
+24 DATABASEMETADATA:
+
 package com.oracle.jdbc;
 import java.sql.*;
 public class DataBase_Metadata {
@@ -1154,7 +1157,8 @@ public class DataBase_Metadata {
 
 
 _____________________________________________________________________________________________
-25
+25 RESULTSET METADATA: 
+
 package com.oracle.jdbc;
 import java.sql.*;
 public class ResultSet_Metadata {
@@ -1208,7 +1212,8 @@ public class ResultSet_Metadata {
 
 
 _____________________________________________________________________________________________
-26
+26 SCROLLABLE RESULT SET:
+
 package com.oracle.jdbc;
 import java.sql.*;
 public class ResultSet_Scrollable {
@@ -1255,7 +1260,7 @@ public class ResultSet_Scrollable {
 
 
 _____________________________________________________________________________________________
-27
+27 UPDATABLE RESULT SET:
 package p;
 
 import java.sql.*;
