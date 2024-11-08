@@ -909,72 +909,117 @@ $(document).ready(function() {
 
 
 _____________________________________________________________________________________________
-20 PARAMETRISED:
+20 parameterised query
 
-package com.oracle.jdbc;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class DML_StatementObject {
+import java.util.Scanner;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("Driver loaded successfully");
-			Connection conn=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","cvr123");
-			System.out.println("Connection established");
-			Statement stmt=conn.createStatement();
-			
-			//inserting values into table
-			/*int count=stmt.executeUpdate("insert into student values(103, 'sanjay',98)");
-			if(count==1) {
-				System.out.println("Record inserted successfully.");
-			}else {
-				System.out.println("There is some problem in inserting record");
-			}
-			*/
-			
-			//updating values of the table
-			
-			int count1=stmt.executeUpdate("update student set name='ajay' where marks=93");
-			if(count1==1) {
-				System.out.println("Record successfully updated");
-			}else {
-				System.out.println("Error in updating record.");
-			}
-			
-			
-			// deleting record form table;
-			/*int count2=stmt.executeUpdate("delete from student where name='ajay'");
-			if(count2==1) {
-				System.out.println("Record successfully deleted");
-			}else {
-				System.out.println("Error in deleting record.");
-			}
-			*/
-			ResultSet rs=stmt.executeQuery("select * from student");			
-			while(rs.next()) {
-				System.out.println(rs.getInt(1)+" "+rs.getString(2)+" "+rs.getInt(3));
-			}
-			conn.close();
-			stmt.close();
-			rs.close();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-	}
+
+public class Main {
+
+
+
+    public static void main(String[] args) {
+
+
+
+        try {
+
+            // Load Oracle JDBC Driver
+
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+
+            System.out.println("Driver loaded successfully");
+
+
+
+            // Establish connection
+
+            Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "saiprasad");
+
+            System.out.println("Connection established");
+
+
+
+            // SQL Query with placeholders
+
+            String SQLQuery = "INSERT INTO Student VALUES (?, ?, ?)";
+
+
+
+            // Create PreparedStatement
+
+            PreparedStatement pst = conn.prepareStatement(SQLQuery);
+
+
+
+            // Initialize Scanner for user input
+
+            Scanner sc = new Scanner(System.in);
+
+
+
+            // Take user inputs
+
+            System.out.print("Enter ID: ");
+
+            int id = sc.nextInt();
+
+            pst.setInt(1, id);
+
+
+
+            System.out.print("Enter Name: ");
+
+            String name = sc.next();
+
+            pst.setString(2, name);
+
+
+
+            System.out.print("Enter Branch: ");
+
+            String branch = sc.next();
+
+            pst.setString(3, branch);
+
+
+
+            // Execute Update
+
+            pst.executeUpdate();
+
+            System.out.println("Record inserted successfully");
+
+
+
+            // Close resources
+
+            pst.close();
+
+            conn.close();
+
+            System.out.println("Connection closed");
+
+
+
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
 
 }
+
 
 
 _____________________________________________________________________________________________
