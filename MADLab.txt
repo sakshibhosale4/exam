@@ -1,0 +1,896 @@
+// HELLO WORLD //
+
+***MainActivity.kt***
+package com.example.helloworld
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalMapOf
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.helloworld.ui.theme.HelloWorldTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            HelloWorld()
+        }
+    }
+}
+
+@Composable
+fun HelloWorld(){
+    Box(
+        modifier=Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(text = "Hello World !!",
+            color = Color.Red,
+            fontWeight = FontWeight.Bold
+            )
+    }
+}
+
+______________________________________________________________________________________________________
+ 
+//Activity life cycle demo//
+
+***MainActivity.kt***
+package com.example.acivitylifecycle
+
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.acivitylifecycle.ui.theme.AcivityLifeCycleTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            // Displaying a simple Compose UI
+            ActivityLifecycleDemo()
+        }
+        Toast.makeText(applicationContext ,"ON CREATE() CALLED",Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(applicationContext,"ON START() CALLED",Toast.LENGTH_SHORT).show()
+    }
+    override fun onRestart() {
+        super.onRestart()
+        Toast.makeText(applicationContext,"ON RESTART() CALLED",Toast.LENGTH_SHORT).show()
+    }
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(applicationContext,"ON RESUME() CALLED",Toast.LENGTH_SHORT).show()
+    }
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(applicationContext,"ON PAUSE() CALLED",Toast.LENGTH_SHORT).show()
+    }
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(applicationContext,"ON STOP() CALLED",Toast.LENGTH_SHORT).show()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(applicationContext,"ON DESTROY() CALLED",Toast.LENGTH_SHORT).show()
+    }
+}
+
+@Composable
+fun ActivityLifecycleDemo() {
+    // Simple text to display
+    Text(text = "Activity Lifecycle Demo")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    ActivityLifecycleDemo()
+}
+_______________________________________________________________________________________________________
+
+// EXPLICIT INTENT //
+
+***MainActivity.kt***
+
+package com.ashwin.myapplication
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.ashwin.myapplication.ui.theme.MyApplicationTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+          Simpleexplicit()
+        }
+    }
+}
+@Composable
+fun Simpleexplicit(){
+    val context = LocalContext.current
+
+    var uname by remember {
+        mutableStateOf("")
+    }
+    Column { 
+        OutlinedTextField(value = uname,
+            onValueChange = {uname=it},
+            label = { Text(text = "Enter Your User Name")},
+            modifier = Modifier.fillMaxWidth()
+            )
+        Spacer(modifier = Modifier.height(25.dp))
+        Button(onClick = {
+           val intent = Intent(context,SecondActivity::class.java).apply { 
+               putExtra("user_name",uname)
+           }
+            context.startActivity(intent)
+
+        }) {
+           Text(text = "Send to SecondActivity")
+        }
+
+    }
+
+}
+
+***Second Acitivity.kt***
+
+package com.ashwin.myapplication
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.core.app.ComponentActivity
+
+@SuppressLint("RestrictedApi")
+class SecondActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    	val myname = intent.getStringExtra("user_name")
+        Toast.makeText(this,"Welcome $myname",Toast.LENGTH_LONG).show()
+
+    }
+
+}
+
+***Android Manifest***
+ <activity android:name=".SecondActivity"/>
+_________________________________________________________________________________________________________
+
+// TIP CALCULATOR//
+
+***MainActivity.kt***
+package com.example.tipcalculator
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.tipcalculator.ui.theme.TipCalculatorTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            TipCalculator()
+        }
+    }
+}
+
+@Composable
+fun TipCalculator(){
+    var billAmount by remember { mutableStateOf("") }
+    var tipPercentage by remember { mutableStateOf("") }
+    var tipAmount by remember { mutableStateOf(0.0) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        TextField(
+            value = billAmount,
+            onValueChange = { billAmount = it },
+            label = { Text(text = "Bill Amount") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        TextField(
+            value = tipPercentage,
+            onValueChange = { tipPercentage = it },
+            label = { Text(text = "Tip Percentage") },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+        Button(
+            onClick = {
+                val bill = billAmount.toDoubleOrNull() ?: 0.0
+                val percentage = tipPercentage.toDoubleOrNull() ?: 0.0
+                tipAmount = bill * (percentage / 100)
+            },
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        ) {
+            Text(text = "Calculate Tip")
+        }
+        Text(
+            text = "Tip Amount = $%.2f".format(tipAmount),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+    }
+}
+______________________________________________________________________________________________
+
+// DICE ROLLER //
+
+***MainActivity.kt***
+package com.example.diceroller
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import com.example.diceroller.ui.theme.DiceRollerTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            DiceRollerTheme {
+                DiceRollerApp()
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun DiceRollerApp(){
+    DiceWithButtonAndImage(modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center))
+}
+
+@Composable
+fun DiceWithButtonAndImage(modifier: Modifier=Modifier){
+    var result by remember{ mutableStateOf(1) }
+    val imageResource =when(result){
+        1->R.drawable.dice_1
+        2->R.drawable.dice_2
+        3->R.drawable.dice_3
+        4->R.drawable.dice_4
+        5->R.drawable.dice_5
+        else->R.drawable.dice_6
+    }
+    Column (modifier=modifier, horizontalAlignment = Alignment.CenterHorizontally){
+        Image(painter = painterResource(imageResource),
+            contentDescription = result.toString()
+        )
+        Button(onClick = {result=(1..6).random()}) {
+            Text(text = stringResource(R.string.roll),
+                fontSize = 24.sp)
+        }
+    }
+}
+
+***Strings.xml***
+<resources>
+<string name="app_name">DiceRoller</string>
+<string name="roll">Roll</string>
+</resources>
+
+______________________________________________________________________________________________
+
+// INCREMENTER DECREMENTER //
+
+***MainActivity***
+package com.example.incrementerdecrementer
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.incrementerdecrementer.ui.theme.IncrementerDecrementerTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            IncrementerCounter()
+        }
+    }
+}
+
+@Composable
+fun IncrementerCounter(){
+    var counter by remember { mutableStateOf(0) }
+    Column (
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(text = "Counter : $counter")
+        Button(onClick = {counter++}) {
+            Text(text = "Incrementer Counter")
+        }
+        Button(onClick = {counter--}) {
+            Text(text = "Decrement Counter")
+        }
+    }
+}
+_________________________________________________________________________________________________________
+
+// FRAGMENT NAVIGATION //
+
+***MainActivity.kt***
+package com.example.navigatethroughfragments
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            val navcontroller = rememberNavController()
+            NavHost(navController = navcontroller, startDestination = "Fragment1") {
+                composable("fragment1"){
+                    Fragment1(navcontroller)
+                }
+                composable("fragment2"){
+                    Fragment2(navcontroller)
+                }
+                composable("fragment3"){
+                    Fragment3(navcontroller)
+                }
+
+            }
+        }
+    }
+}
+
+@Composable
+fun Fragment1(navController: NavController){
+    Column(
+        modifier=Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Your in fragment1")
+        Button(onClick = {
+            navController.navigate("Fragment2")
+        }) {
+            Text(text = "Go to fragment2")
+        }
+    }
+}
+
+@Composable
+fun Fragment2(navController: NavController){
+    Column(
+        modifier=Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Your in fragment2")
+        Button(onClick = {
+            navController.navigate("Fragment3")
+        }) {
+            Text(text = "Go to fragment3")
+        }
+    }
+}
+
+
+@Composable
+fun Fragment3(navController: NavController){
+    Column(
+        modifier=Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "Your in fragment3")
+        Button(onClick = {
+            navController.navigate("Fragment1")
+        }) {
+            Text(text = "Go to fragment1")
+        }
+    }
+}
+
+***Dependencies***
+implementation("androidx.navigation:navigation_compose:2.8.1")
+____________________________________________________________________________________________________________
+
+///SQLiteDatabase room data base activity///
+
+***User.kt(dataclass)***
+package com.example.sqlitedatabase
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity (tableName="User")
+data class User(@PrimaryKey(autoGenerate=true)
+    val uid:Int?=null,
+    val userName:String,
+    val userPhone:String
+)
+
+***UserDatabase.kt(class)***
+package com.example.sqlitedatabase
+
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.Database
+
+@Database(entities = [User::class], version = 1)
+abstract class UserDatabase: RoomDatabase() {
+    abstract fun userDAO():UserDAO
+    companion object{
+        @Volatile
+        private var INSTANCE : UserDatabase ?=null
+        fun getInstance(context: Context):UserDatabase{
+            return INSTANCE ?: synchronized(this){
+                val instance= Room.databaseBuilder(
+                    context.applicationContext,
+                    UserDatabase::class.java,"Sakshi_Database"
+                ).build()
+                INSTANCE=instance
+                instance
+            }
+        }
+    }
+}
+
+***UserDAO.kt(interface)***
+package com.example.sqlitedatabase
+
+import androidx.room.Dao
+import androidx.room.Insert
+
+@Dao
+interface UserDAO {
+    @Insert
+    suspend fun insert (user:User)
+}
+
+***MainActivity.kt***
+package com.example.sqlitedatabase
+
+import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.motionEventSpy
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.sqlitedatabase.ui.theme.SQLiteDatabaseTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            val database=UserDatabase.getInstance(context = this)
+            InsertRecord(database)
+        }
+    }
+}
+
+@Composable
+fun InsertRecord(database: UserDatabase){
+    val context= LocalContext.current
+    var name by remember{
+        mutableStateOf(value = "")
+    }
+    var phone by remember{
+        mutableStateOf(value = "")
+    }
+    var UserDAO=database.userDAO()
+    val scope= rememberCoroutineScope()
+    Column (
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment=Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ){
+        Text(text = "Enter your information")
+        Spacer(modifier = Modifier.height(25.dp))
+        OutlinedTextField(value = name, onValueChange = {name=it},
+            label = { Text(text = "Enter your name") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(25.dp) )
+        OutlinedTextField(value=phone, onValueChange = {phone=it},
+            label = { Text(text = "Enter your phone number") },
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(modifier = Modifier.height(25.dp) )
+        Button(onClick = {
+            scope.launch (Dispatchers.IO){
+                UserDAO.insert(User(userName=name, userPhone=phone))
+            }
+            Toast.makeText(context, "Record Inserted" + " Successfully", Toast.LENGTH_LONG).show();
+        }) {
+            Text(text = "Insert New Record")
+        }
+    }
+}
+______________________________________________________________________________________________________
+________________________________________________________________________________________________________
+
+
+
+
+
+
+////////////////////kotlin programs///////////////////////
+
+***Integer Nullable or Not***
+
+fun main(args: Array<String>) {
+    println("Enter a number : ");
+    var n:Int?=readLine()?.toIntOrNull();
+    if(n!=null){
+      println("Square of $n is ${n*n}");
+    }else{
+      println("Inputl is null");
+    }
+}
+___________________________________________________________________________________________
+
+***Guess the number***
+
+    fun main(){
+      var n=-1;
+      var a=(1..100).random();
+      var count=0;
+      while(n!=a){
+      println("Guess the number : ");
+      n=readLine()!!.toInt();
+        if(n>a){
+          println("The guess is too high.");
+        }else if(n<a){
+          println("The guess is too low.");
+        }
+        count++;
+      }
+      println("The number guessed right in $count tries.");
+      
+    }
+____________________________________________________________________________________________
+
+***Customised Greet Message***
+
+fun greet() {
+    // Take name input from the user
+    print("Enter your name: ")
+    val name = readLine() ?: "Sir/Maam "
+
+    // Take custom message input from the user
+    print("Enter a custom message (press Enter to skip): ")
+    val customMessage = readLine()
+
+    // Check if a custom message is provided or not, and greet accordingly
+    if (customMessage.isNullOrEmpty()) {
+        println("Hello, $name! Welcome! Have a great day!")
+    } else {
+        println("Hello, $name! $customMessage")
+    }
+}
+
+fun main() {
+    greet()
+}
+_____________________________________________________________________________________________
+
+***Dwellings***
+
+import kotlin.math.PI
+import kotlin.math.sqrt
+
+fun main() {
+    val squareCabin = SquareCabin(6, 50.0)
+    val roundHut = RoundHut(3, 10.0)
+    val roundTower = RoundTower(4, 15.5)
+
+    println("\nSquare Cabin\n============")
+    squareCabin.printDetails()
+
+    println("\nRound Hut\n=========")
+    roundHut.printDetails()
+    println("Has room? ${roundHut.hasRoom()}")
+    roundHut.getRoom()
+    println("Has room? ${roundHut.hasRoom()}")
+    println("Carpet size: ${roundHut.calculateMaxCarpetLength()}")
+
+    println("\nRound Tower\n==========")
+    roundTower.printDetails()
+    println("Carpet Length: ${roundTower.calculateMaxCarpetLength()}")
+}
+
+// Base class for all dwellings
+abstract class Dwelling(private var residents: Int) {
+    abstract val buildingMaterial: String
+    abstract val capacity: Int
+
+    abstract fun floorArea(): Double
+
+    fun hasRoom(): Boolean = residents < capacity
+
+    fun getRoom() {
+        if (hasRoom()) {
+            residents++
+            println("You got a room!")
+        } else {
+            println("Sorry, no rooms left.")
+        }
+    }
+
+    fun printDetails() {
+        println("Material: $buildingMaterial")
+        println("Capacity: $capacity")
+        println("Floor area: ${floorArea()}")
+    }
+}
+
+// SquareCabin subclass
+class SquareCabin(residents: Int, val length: Double) : Dwelling(residents) {
+    override val buildingMaterial = "Wood"
+    override val capacity = 6
+
+    override fun floorArea(): Double = length * length
+}
+
+// RoundHut subclass
+open class RoundHut(residents: Int, val radius: Double) : Dwelling(residents) {
+    override val buildingMaterial = "Straw"
+    override val capacity = 4
+
+    override fun floorArea(): Double = PI * radius * radius
+
+    fun calculateMaxCarpetLength(): Double = sqrt(2.0) * radius
+}
+
+// RoundTower subclass
+class RoundTower(residents: Int, radius: Double, val floors: Int = 2) : RoundHut(residents, radius) {
+    override val buildingMaterial = "Stone"
+    override val capacity = floors * 4
+
+    override fun floorArea(): Double = super.floorArea() * floors
+}
+
+_____________________________________________________________________________________________
+
+***Affirmations***
+package com.example.affirmations
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.affirmations.ui.theme.AffirmationsTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            AffirmationsApp()
+        }
+    }
+}
+
+data class Affirmation(val imageResId: Int,val text: String)
+
+@Composable
+fun AffirmationsApp(){
+    val affirmations_images= listOf(
+        Affirmation(R.drawable.img1,"I AM A CAR"),
+        Affirmation(R.drawable.img2,"I AM A CAR"),
+        Affirmation(R.drawable.img3,"I AM A CAR"),
+        Affirmation(R.drawable.img4,"I AM A CAR"),
+        Affirmation(R.drawable.img5,"I AM NATURE"),
+        Affirmation(R.drawable.img6,"I AM A CAR"),
+        Affirmation(R.drawable.img7,"I AM A CAR"),
+        Affirmation(R.drawable.img8,"I AM A CAR"),
+        Affirmation(R.drawable.img9,"I AM A CAR"),
+        Affirmation(R.drawable.img10,"I AM NATURE"),
+    )
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(horizontal = 16.dp)
+    ){
+        items(affirmations_images){index->
+            AffirmationCard(index)
+        }
+    }
+}
+
+
+@Composable
+fun AffirmationCard(affirmation: Affirmation){
+    Card(modifier = Modifier.fillMaxWidth()) {
+        Column {
+            Image(painter = painterResource(id = affirmation.imageResId),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                contentScale = ContentScale.Crop
+            )
+            Text(text = affirmation.text,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+    }
+}
+
+
+
+
+
+
